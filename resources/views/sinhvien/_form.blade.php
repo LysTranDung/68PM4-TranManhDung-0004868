@@ -1,0 +1,12 @@
+@php($sv = $sinhVien ?? null)
+<div class="row g-3">
+<div class="col-md-6"><label class="form-label">Mã sinh viên *</label><input name="ma_sinh_vien" value="{{ old('ma_sinh_vien',$sv?->ma_sinh_vien) }}" class="form-control" required>@error('ma_sinh_vien')<div class="text-danger">{{ $message }}</div>@enderror</div>
+<div class="col-md-6"><label class="form-label">Họ tên *</label><input name="ho_ten" value="{{ old('ho_ten',$sv?->ho_ten) }}" class="form-control" required>@error('ho_ten')<div class="text-danger">{{ $message }}</div>@enderror</div>
+<div class="col-md-6"><label class="form-label">Email</label><input type="email" name="email" value="{{ old('email',$sv?->email) }}" class="form-control"></div>
+<div class="col-md-6"><label class="form-label">Số điện thoại</label><input name="so_dien_thoai" value="{{ old('so_dien_thoai',$sv?->so_dien_thoai) }}" class="form-control"></div>
+<div class="col-md-6"><label class="form-label">Ngày sinh</label><input type="date" name="ngay_sinh" value="{{ old('ngay_sinh',$sv?->ngay_sinh?->format('Y-m-d')) }}" class="form-control"></div>
+<div class="col-md-6"><label class="form-label">Giới tính</label><select name="gioi_tinh" class="form-select"><option value="">Chưa chọn</option>@foreach(['Nam','Nữ','Khác'] as $g)<option value="{{ $g }}" @selected(old('gioi_tinh',$sv?->gioi_tinh)===$g)>{{ $g }}</option>@endforeach</select></div>
+<div class="col-md-6"><label class="form-label">Lớp học *</label><select name="lop_hoc_id" class="form-select" required><option value="">Chọn lớp</option>@foreach($lopHocs as $lop)<option value="{{ $lop->id }}" @selected(old('lop_hoc_id',$sv?->lop_hoc_id)==$lop->id)>{{ $lop->ma_lop }} — {{ $lop->ten_lop }}</option>@endforeach</select>@error('lop_hoc_id')<div class="text-danger">{{ $message }}</div>@enderror</div>
+<div class="col-md-6"><label class="form-label">Trạng thái *</label><select name="trang_thai" class="form-select"><option value="1" @selected(old('trang_thai',$sv?->trang_thai ?? 1)==1)>Đang học</option><option value="0" @selected(old('trang_thai',$sv?->trang_thai ?? 1)==0)>Ngừng học</option></select></div>
+<div class="col-12"><label class="form-label">Địa chỉ</label><textarea name="dia_chi" class="form-control" rows="2">{{ old('dia_chi',$sv?->dia_chi) }}</textarea></div>
+</div><div class="mt-4"><button class="btn btn-primary">{{ $sv?'Lưu thay đổi':'Thêm sinh viên' }}</button> <a class="btn btn-outline-secondary" href="{{ route('sinhvien.index') }}">Hủy</a></div>
